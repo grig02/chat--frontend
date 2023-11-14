@@ -1,8 +1,16 @@
 import React from 'react'
+import dayjs from 'dayjs'
+import classnames from 'classnames'
+import './Message.css'
 
-const Message = () => {
+const Message = ({message: {text, unix, left}}) => {
   return (
-    <div>Message</div>
+    <div className={classnames('message', {
+      'message--right': !left,
+    })}>
+      <div>{text}</div>
+      <div>{dayjs.unix(unix).format('YYYY/MM/DD HH:mm:ss')}</div>
+    </div>
   )
 }
 
