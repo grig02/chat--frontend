@@ -1,42 +1,43 @@
-// ChatInput.js
-import React, { useState } from 'react';
-import './Footer.css'; // Make sure to create this file for styling
+import React, {useState} from 'react'
+import './Footer.css'
 
-const Footer = () => {
-  const [message, setMessage] = useState('');
+const Footer = ({setMessages}) => {
+  const [message, setMessage] = useState('')
 
   const handleInputChange = (e) => {
-    setMessage(e.target.value);
-  };
+    setMessage(e.target.value)
+  }
 
-  const handleSendMessage = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
     if (message.trim() !== '') {
-      // onSendMessage(message);
-      setMessage('');
+      setMessages(state => [
+        ...state,
+        {
+          text: message.trim(),
+          unix: Math.floor(Date.now() / 1000),
+          left: false
+        },
+      ])
+      setMessage('')
     }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSendMessage();
-    }
-  };
+  }
 
   return (
-    <div className="chat-input-container">
+    <form className="chat-input-container" onSubmit={handleSubmit}>
       <input
         className="chat-input"
         type="text"
         placeholder="Type your message..."
         value={message}
         onChange={handleInputChange}
-        // onKeyPress={handleKeyPress}
       />
-      <button className="send-button" onClick={handleSendMessage}>
+      <button className="send-button" type="submit">
         Send
       </button>
-    </div>
-  );
-};
+    </form>
+  )
+}
 
-export default Footer;
+export default Footer

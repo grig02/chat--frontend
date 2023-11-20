@@ -5,11 +5,13 @@ import './Message.css'
 
 const Message = ({message: {text, unix, left}}) => {
   return (
-    <div className={classnames('message', {
+    <div className={classnames('message-wrapper', {
       'message--right': !left,
     })}>
-      <div>{text}</div>
-      <div>{dayjs.unix(unix).format('YYYY/MM/DD HH:mm:ss')}</div>
+      <div className={classnames('message')}>
+        <div>{text}</div>
+        <div>{dayjs.unix(unix).format('YYYY/MM/DD HH:mm:ss')}</div>
+      </div>
     </div>
   )
 }
