@@ -3,5 +3,9 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-
+    overflow-y: auto;
+}
+.message-cnt{
+    height: 1000px;
+    overflow-y: auto;
 }

@@ -1,15 +1,20 @@
-import React, {useState} from 'react'
-import Message from '../Message/Message'
+import React from 'react'
+import Message from '../message/Message'
 import './Content.css'
 
 const Content = ({messages}) => {
 
   return (
-    <div className="content">{
-      messages.map(message => (
-        <Message message={message}/>
-      ))
-    }</div>
+    <div className="content">
+      <div className="message-cnt">
+        {
+          messages.map(message => (
+            <Message message={message}/>
+          ))
+        }
+      </div>
+
+    </div>
   )
 }
 

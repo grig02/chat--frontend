@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import './Footer.css'
 
-const Footer = ({setMessages}) => {
+const Footer = ({sendMessage}) => {
   const [message, setMessage] = useState('')
 
   const handleInputChange = (e) => {
@@ -12,14 +12,7 @@ const Footer = ({setMessages}) => {
     e.preventDefault()
 
     if (message.trim() !== '') {
-      setMessages(state => [
-        ...state,
-        {
-          text: message.trim(),
-          unix: Math.floor(Date.now() / 1000),
-          left: false
-        },
-      ])
+      sendMessage(message.trim())
       setMessage('')
     }
   }
