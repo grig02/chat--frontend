@@ -1,38 +1,53 @@
 import React, {useState} from 'react'
 import './SignIn.css'
+import classnames from 'classnames'
 
-const SignIn = ({sendUsername}) => {
-  const [username , setUsername] = useState('')
+const SignIn = ({error, signIn}) => {
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
 
-  const handleInputChange = (e) => {
-    setUsername(e.target.value)
+  const handleLoginInputChange = (e) => {
+    setLogin(e.target.value)
+  }
+  const handlePasswordInputChange = (e) => {
+    setPassword(e.target.value)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (username.trim() !== '') {
-      sendUsername(username.trim())
-      setUsername('')
-    }
+      signIn({login, password})
+      setLogin('')
+      setPassword('')
   }
 
   return (
     <div className="sign-in">
       <form className="chat-input-container" onSubmit={handleSubmit}>
         <input
+          required
           className="chat-input"
           type="text"
-          placeholder="Type your username..."
-          value={username}
-          onChange={handleInputChange}
+          placeholder="Login..."
+          value={login}
+          onChange={handleLoginInputChange}
         />
+        <input
+          required
+          className="chat-input"
+          type="password"
+          placeholder="*********"
+          value={password}
+          onChange={handlePasswordInputChange}
+        />
+        <p className={classnames('form-error', {
+          'form-error-hide': !error
+        })}>Error: {error}</p>
         <button className="send-button" type="submit">
-          Send
+          Login
         </button>
       </form>
     </div>
-
   )
 }
 

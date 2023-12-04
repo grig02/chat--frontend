@@ -12,6 +12,7 @@ const Footer = ({sendMessage}) => {
     e.preventDefault()
 
     if (message.trim() !== '') {
+      console.log('send-message')
       sendMessage(message.trim())
       setMessage('')
     }

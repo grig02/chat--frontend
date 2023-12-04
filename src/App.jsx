@@ -5,6 +5,7 @@ import Footer from './components/footer/Footer'
 import './App.css'
 import {io} from 'socket.io-client'
 import SignIn from './components/sign-in/SignIn.jsx'
+import {useSingIn} from './hooks/use-sing-in.js'
 
 const socket = io('http://localhost:3001', {
   transports: ['websocket'],
@@ -12,37 +13,33 @@ const socket = io('http://localhost:3001', {
 
 const App = () => {
   const [messages, setMessages] = useState([])
-  const [username, setUsername] = useState(localStorage.getItem('username'))
+  const [error, user, signInHandler, signOutHandler] = useSingIn()
 
   function onMessage(data) {
     setMessages(state => [...state, ...data])
   }
 
   useEffect(() => {
-    if (username) {
+    if (user) {
       setMessages([])
-      socket.emit('connect-to-server', {username: localStorage.getItem('username')})
+      socket.emit('connect-to-server', {username: user.username})
       socket.on('new-messages', onMessage)
     }
 
     return () => {
       socket.off('new-messages', onMessage)
     }
-  }, [username])
+  }, [user])
 
   return (
     <div className="wrapper">
-      {username ? (<>
-        <Header username={username}/>
+      {user ? (<>
+        <Header username={user.username} logout={signOutHandler}/>
         <Content messages={messages}/>
         <Footer sendMessage={(text) => {
           socket.emit('send-message', {text})
         }}/>
-      </>) : <SignIn sendUsername={(data) => {
-        setUsername(data)
-        localStorage.setItem('username', data)
-      }}/>}
-
+      </>) : <SignIn error={error} signIn={signInHandler}/>}
     </div>
   )
 }

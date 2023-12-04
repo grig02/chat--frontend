@@ -9,6 +9,7 @@
 /* ChatInput.css */
 .chat-input-container {
     display: flex;
+    flex-direction: column;
     margin-top: 16px;
     padding: 50px;
 }
@@ -16,6 +17,7 @@
 .chat-input {
     flex: 1;
     padding: 10px;
+    margin-bottom: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px 0 0 4px;
@@ -36,4 +38,13 @@
 .send-button:hover {
     background-color: #0d8ae8;
     border-color: #0d8ae8;
+}
+
+.form-error {
+    color: red;
+    opacity: 1;
+}
+
+.form-error.form-error-hide {
+    opacity: 0;
 }
