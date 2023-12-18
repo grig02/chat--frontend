@@ -47,5 +47,5 @@ export function useSingIn() {
     }
   }, [token])
 
-  return [error, user, signInHandler, signOutHandler]
+  return [error, user, token, signInHandler, signOutHandler]
 }
